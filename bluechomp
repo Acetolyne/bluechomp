@@ -1,0 +1,153 @@
+#!/bin/bash
+
+#bdaddr="00:23:3A:5E:AA:D3"
+
+
+#Set some variables to default
+a="0"
+b="0"
+c="0"
+d="0"
+e="0"
+f="0"
+g="0"
+h="0"
+i="0"
+j="0"
+k="0"
+l="0"
+pos='$l'
+bdaddr=$a$b:$c$d:$e$f:$g$h:$i$j:$k$l
+VALUES="0 1 2 3 4 5 6 7 8 9 A B C D E F"
+
+#IF NO ARGUMENTS WERE PROVIDED
+function USAGE ()
+{
+    echo ""
+    echo "USAGE: "
+    echo "    bluechomp [-i -s -e -f]"
+    echo ""
+    echo "OPTIONS:"
+    echo "    -i  number of bluetooth devices to use (ex: -i 2) default is 1"
+    echo "    -s  start bd address (ex: -s 33:33:33:33:33:33)default is 00:00:00:00:00:00"
+    echo "    -e  ending bd address (ex: -e EE:EE:EE:EE:EE:EE)default is FF:FF:FF:FF:FF:FF"
+    echo "    -f  an optional filename to save the dump data to (ex: -f /root/dumpfile.txt) default is none"
+    echo "    -help or --help  this help screen"
+    echo ""
+    echo "EXAMPLE:"
+    echo "    bluechomp -i 2 -s 00:00:00:00:00:05 -e FF:FF:FF:FF:FF:F5 -f /root/dumpfile.txt"
+    echo ""
+    exit $E_OPTERROR    # Exit and explain usage, if no argument(s) given.
+}
+
+#PROCESS ARGS
+while getopts ":i:s:e:f:help:-help" Option
+do
+    case $Option in
+        i    ) DI=$OPTARG;;
+        s    ) SA=$OPTARG;;
+        e    ) EA=$OPTARG;;
+        f    ) DF=$OPTARG;;
+        help    ) USAGE
+               exit 0;;
+        -help    ) USAGE
+               exit 0;;
+        *    ) echo ""
+               echo "Unimplemented option chosen."
+               USAGE   # DEFAULT
+    esac
+done
+
+shift $(($OPTIND - 1))
+
+hciconfig hci0 up
+hciconfig hci0 pageto 2500
+if [ -n "$SA" ]; then
+sa=${SA:0:1}
+sb=${SA:1:1}
+sc=${SA:3:1}
+sd=${SA:4:1}
+se=${SA:6:1}
+sf=${SA:7:1}
+sg=${SA:9:1}
+sh=${SA:10:1}
+si=${SA:12:1}
+sj=${SA:13:1}
+sk=${SA:15:1}
+sl=${SA:16:1}
+startbdaddr=$sa$sb:$sc$sd:$se$sf:$sg$sh:$si$sj:$sk$sl
+echo $startbdaddr
+fi
+if [ -n "$EA" ]; then
+ea=${EA:0:1}
+eb=${EA:1:1}
+ec=${EA:3:1}
+ed=${EA:4:1}
+ee=${EA:6:1}
+ef=${EA:7:1}
+eg=${EA:9:1}
+eh=${EA:10:1}
+ei=${EA:12:1}
+ej=${EA:13:1}
+ek=${EA:15:1}
+el=${EA:16:1}
+endbdaddr=$ea$eb:$ec$ed:$ee$ef:$eg$eh:$ei$ej:$ek$el
+echo $endbdaddr
+fi
+
+function scan ()
+{
+bdaddr=$a$b:$c$d:$e$f:$g$h:$i$j:$k$l
+hcitool name ${bdaddr}
+echo ${bdaddr}
+}
+
+for a in $VALUES
+do
+for b in $VALUES
+do
+for c in $VALUES
+do
+for d in $VALUES
+do
+for e in $VALUES
+do
+for f in $VALUES
+do
+for g in $VALUES
+do
+for h in $VALUES
+do
+for i in $VALUES
+do
+for j in $VALUES
+do
+for k in $VALUES
+do
+for l in $VALUES
+do
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+scan
+done
+
